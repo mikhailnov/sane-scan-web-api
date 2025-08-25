@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Scanner Interface</title>
+</head>
+<body>
+    <button onclick="scanImage()">Сканировать</button>
+    <p></p>
+    <img id="scannedImage" style="max-width: 100%; margin-top: 20px;"/>
+
+    <script>
+        async function scanImage() {
+            const imgElement = document.getElementById('scannedImage');
+            try {
+                const response = await fetch('http://localhost/cgi-bin/scan.cgi');
+                const data = await response.json();
+
+                if (data.error) {
+                    alert(`Ошибка: ${data.error}`);
+                    return;
+                }
+
+                // Почему-то картинка отрисовывается частично, перерисовываем ее, изменяя размер
+                imgElement.onload = function() {
+                    this.style.width = '1px';
+                    this.style.height = '1px';
+                    
+                    setTimeout(() => {
+                        this.style.width = '100%';
+                        this.style.height = 'auto';
+                    }, 100);
+                };
+
+                // Отображаем изображение из base64
+                imgElement.src = `data:image/jpeg;base64,${data.image}`;
+            } catch (error) {
+                alert(`Ошибка запроса: ${error.message}`);
+            }
+        }
+    </script>
+</body>
+</html>
