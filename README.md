@@ -28,3 +28,8 @@
 * Запускаем веб-сервер: `sudo systemctl enable --now httpd`
 * Кладем серверную часть в нужную папку: `sudo install -m755 scan.cgi /var/www/cgi-bin/`
 * Открываем `test.html` и пробуем отсканировать. Логи веб-сервера по умолчанию в `/var/log/httpd/`.
+
+## Видео
+
+https://github.com/user-attachments/assets/dda02c10-0cd9-444d-a28a-983fe18ab5bd
+
